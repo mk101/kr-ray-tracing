@@ -60,12 +60,6 @@ public class Window : GameWindow {
         
         InitShaders();
         GL.UseProgram(_basicProgramId);
-
-        // GL.Uniform3(uniform_pos, campos);
-        int aspectLocation = GL.GetUniformLocation(_basicProgramId, "aspect");
-        float aspect = (float) Size.X / Size.Y;
-        
-        GL.Uniform1(aspectLocation, aspect);
     }
 
     protected override void OnUnload() {

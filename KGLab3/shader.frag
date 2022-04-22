@@ -87,8 +87,6 @@ SStack stack;
 out vec4 FragColor;
 in vec3 glPosition;
 
-uniform float aspect;
-
 SRay GenerateRay ( SCamera uCamera ) {
     vec2 coords = glPosition.xy * uCamera.Scale;
     vec3 direction = uCamera.View + uCamera.Side * coords.x + uCamera.Up * coords.y;
@@ -461,9 +459,9 @@ void main ( void ) {
                     //vec3 refractDirection = normalize(refract(normalize(ray.Direction), normalize(intersect.Normal), 1 / intersect.RefractionCoef));
                     vec3 refractDirection = (refract(normalize(ray.Direction), normalize(intersect.Normal), 1 / intersect.RefractionCoef));
                     float contribution = trRay.contribution;
-                    vec3 rPoint = intersect.Point - 2 * ((intersect.Point * refractDirection) /(refractDirection * refractDirection)) * refractDirection;
+                    vec3 opposit = intersect.Point - 2 * ((intersect.Point * refractDirection) /(refractDirection * refractDirection)) * refractDirection;
                     STracingRay refractRay = STracingRay(
-                        SRay(rPoint + refractDirection * EPSILON, refractDirection),
+                        SRay(opposit + refractDirection * EPSILON, refractDirection),
                         contribution, trRay.depth + 1
                     );
                     
